@@ -2,6 +2,8 @@
 
 Coletor de telemetria de medidores de energia: lê um medidor via **Modbus TCP**, persiste as leituras, publica em **MQTT** e expõe tudo numa **API REST**. Construído em **.NET 8** com **Clean Architecture** e testes (unitários + integração).
 
+![API no Swagger](docs/swagger.png)
+
 ```
 ┌─────────────┐   Modbus TCP   ┌──────────────────────────────┐
 │ MeterSimulator│ ─────────────▶ │  API + Coletor (BackgroundSvc)│
