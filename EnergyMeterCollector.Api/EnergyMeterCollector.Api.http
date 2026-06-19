@@ -1,0 +1,6 @@
+@EnergyMeterCollector.Api_HostAddress = http://localhost:5174
+
+GET {{EnergyMeterCollector.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

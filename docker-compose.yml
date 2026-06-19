@@ -1,0 +1,24 @@
+services:
+    mosquitto: 
+        image: eclipse-mosquitto:2
+        ports: ["1883:1883"]
+        volumes:
+            - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    simulator:
+        build: { context: ., dockerfile: MeterSimulator/Dockerfile }
+        ports: ["1502:502"]
+    api:
+        build: { context: ., dockerfile: EnergyMeterCollector.Api/Dockerfile }
+        ports: ["8080:8080"]
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:8080
+            - Modbus__Host=simulator
+            - Mqtt__Host=mosquitto
+            - ConnectionStrings__Default=Data Source=/data/energymeter.db
+        volumes:
+            - api-data:/data
+        depends_on: [simulator, mosquitto]
+        
+volumes:
+    api-data:
